@@ -159,13 +159,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* --- 8. Video Placeholder Helper --- */
-  const videoPlaceholders = document.querySelectorAll('.video-placeholder');
-  videoPlaceholders.forEach(ph => {
-    ph.addEventListener('click', () => {
-      const slot = ph.getAttribute('data-slot') || 'Slot Video';
-      alert(`🎬 ${slot}\n\nCara Memasang Video YouTube:\n1. Buka video Anda di YouTube, klik Bagikan (Share) -> Sematkan (Embed).\n2. Salin link pada atribut src, misalnya: https://www.youtube.com/embed/KODE_VIDEO\n3. Buka file index.html, cari judul "${slot}", lalu tempelkan link tersebut ke atribut src pada tag <iframe> dan ubah style="display: none;" menjadi style="display: block;".`);
+  /* --- 8. Interactive YouTube Video Player Handler --- */
+  const videoWraps = document.querySelectorAll('.video-frame-wrap');
+  videoWraps.forEach(wrap => {
+    wrap.addEventListener('click', () => {
+      // If iframe already loaded, do nothing
+      if (wrap.querySelector('iframe')) return;
+
+      const videoId = wrap.getAttribute('data-video-id');
+      const title = wrap.getAttribute('data-video-title') || 'Video Dokumentasi Pembelajaran';
+      if (!videoId) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.className = 'video-iframe';
+      iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`;
+      iframe.title = title;
+      iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+      iframe.allowFullscreen = true;
+
+      wrap.innerHTML = '';
+      wrap.appendChild(iframe);
     });
   });
-
 });
