@@ -5,6 +5,19 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  /* --- 0. Enforce Desktop Viewport for Mobile & Tablet Devices --- */
+  const enforceDesktopViewport = () => {
+    let meta = document.querySelector('meta[name="viewport"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'viewport';
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute('content', 'width=1200, user-scalable=yes');
+  };
+  enforceDesktopViewport();
+  window.addEventListener('orientationchange', enforceDesktopViewport);
+
   /* --- 1. Mobile Navigation Toggle --- */
   const navToggle = document.getElementById('navToggle');
   const navMenu = document.getElementById('navMenu');
