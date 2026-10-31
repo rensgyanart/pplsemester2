@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
       meta.name = 'viewport';
       document.head.appendChild(meta);
     }
-    meta.setAttribute('content', 'width=1200, user-scalable=yes');
+    meta.setAttribute('content', 'width=1200, user-scalable=yes, maximum-scale=4.0');
   };
   enforceDesktopViewport();
   window.addEventListener('orientationchange', enforceDesktopViewport);
